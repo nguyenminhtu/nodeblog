@@ -1,0 +1,41 @@
+<% include partials/menu.ejs %>
+
+	<div id="main">
+		<div class="container">
+			<div class="row">
+				<div class="well">
+					Search result for keyword: <b style="color: red"><i><%= key %></i></b>
+				</div>
+				<% if(posts_title) { %>
+					<% posts_title.forEach(function(title) { %>
+						<div class="col-sm-6">
+							<div class="well">
+								<a href="/posts/<%= title._id %>/show"><img src="/uploads/<%= title.image %>" alt="" class="img-responsive"></a>
+								<br>
+								<p class="lead"><a href="/posts/<%= title._id %>/show"><%- changeColorText(title.title, key) %></a></p>
+								<p><%= shortText(title.content, 200) %> ....</p>
+								<p><i class="glyphicon glyphicon-time"></i>&nbsp; <%= moment(title.date).format('hh:mm:ss DD/MM/YYYY') %></p>
+								<p><a href="/posts/<%= title._id %>/show" class="btn btn-primary">Read more &nbsp;&raquo;</a></p>
+							</div>
+						</div>
+					<% }); %>
+				<% } %>
+				<% if(posts_content) { %>
+					<% posts_content.forEach(function(content) { %>
+						<div class="col-sm-6">
+							<div class="well">
+								<a href="/posts/<%= content._id %>/show"><img src="/uploads/<%= content.image %>" alt="" class="img-responsive"></a>
+								<br>
+								<p class="lead"><a href="/posts/<%= content._id %>/show"><%= content.title %></a></p>
+								<p><%- shortText(changeColorText(content.content, key), 200) %> ....</p>
+								<p><i class="glyphicon glyphicon-time"></i>&nbsp; <%= moment(content.date).format('hh:mm:ss DD/MM/YYYY') %></p>
+								<p><a href="/posts/<%= content._id %>/show" class="btn btn-primary">Read more &nbsp;&raquo;</a></p>
+							</div>
+						</div>
+					<% }); %>
+				<% } %>
+			</div>
+		</div>
+	</div>
+
+<% include partials/footer.ejs %>

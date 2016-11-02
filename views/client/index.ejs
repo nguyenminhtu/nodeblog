@@ -1,0 +1,22 @@
+<% include partials/menu.ejs %>
+
+	<div id="main">
+		<div class="container">
+			<div class="row">
+				<% posts.forEach(function(post) { %>
+					<div class="col-sm-6">
+						<div class="well">
+							<a href="/posts/<%= post._id %>/show"><img src="/uploads/<%= post.image %>" alt="" class="img-responsive"></a>
+							<br>
+							<p class="lead"><a href="/posts/<%= post._id %>/show"><%= post.title %></a></p>
+							<p><%= shortText(post.content, 200) %> ....</p>
+							<p><i class="glyphicon glyphicon-time"></i>&nbsp; <%= moment(post.date).format('hh:mm:ss DD/MM/YYYY') %></p>
+							<p><a href="/posts/<%= post._id %>/show" class="btn btn-primary">Read more &nbsp;&raquo;</a></p>
+						</div>
+					</div>
+				<% }); %>
+			</div>
+		</div>
+	</div>
+
+<% include partials/footer.ejs %>

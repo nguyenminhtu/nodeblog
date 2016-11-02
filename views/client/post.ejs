@@ -1,0 +1,43 @@
+<% include partials/menu.ejs %>
+
+
+<div id="post_details">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-8">
+				<div class="well">
+					<h1 style="margin-top: 0px"><%= post.title %></h1>
+					<br>
+					<p><i class="glyphicon glyphicon-time"></i>&nbsp;<%= moment(post.date).format('hh:mm:ss DD/MM/YYYY') %></p>
+					<br>
+					<img class="img-responsive" src="/uploads/<%= post.image %>" style="width: 100%;height: auto"></img>
+					<br>
+					<p><%= post.content %></p>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="well">
+					<b>Relate Posts</b>
+				</div>
+				<div class="well">
+					<% relatePosts.forEach(function(pos) { %>
+						<div class="item-relate">
+							<div class="row">
+								<div class="col-sm-4">
+									<a href="/posts/<%= pos._id %>/show"><img src="/uploads/<%= pos.image %>" alt="" class="img-responsive"></a>
+								</div>
+								<div class="col-sm-8">
+									<p class="lead"><a href="/posts/<%= pos._id %>/show"><%= pos.title %></a></p>
+									<p><%= moment(pos.date).format('hh:mm:ss DD/MM/YYYY') %></p>
+								</div>
+							</div>
+						</div>
+					<% }); %>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<% include partials/footer.ejs %>
