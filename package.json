@@ -22,6 +22,7 @@
     "mongoose-paginate": "^5.0.3",
     "morgan": "~1.7.0",
     "multer": "*",
+    "nodemailer": "^2.6.4",
     "passport": "*",
     "passport-http": "*",
     "passport-local": "*",

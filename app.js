@@ -62,6 +62,8 @@ app.use(function(req, res, next){
   res.locals.changeColorText = function(text, keyword){
     if(text.indexOf(keyword) >= 0){
       return text.replace(keyword, "<span style='color: red'>"+keyword+"</span>")
+    }else{
+      return text;
     }
   }
   res.locals.shortText = function (text, limit) {
