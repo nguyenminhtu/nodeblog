@@ -16,7 +16,7 @@ var postSchema = mongoose.Schema({
 		type: Date
 	},
 	comments: [{
-		comment_id: {type: [mongoose.Schema.Types.ObjectId]},
+		comment_username: {type: String},
 		comment_content: {type: String},
 		comment_date: {type: Date}
 	}]

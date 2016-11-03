@@ -11,10 +11,7 @@ router.get('/', function(req, res) {
 			console.log(err);
 			res.end(err);
 		}else{
-			Post.paginate({}, { offset: 5, limit: 2 }).then(function(result) {
-			 	console.log(result);
-			 	res.render('client/index', { title: 'My NodeBlog', posts: posts, paginate: result });
-			});
+			res.render('client/index', { title: 'My NodeBlog', posts: posts });
 		}
 	});
 });
@@ -32,7 +29,7 @@ router.post('/contact/send', function (req, res, next) {
 		service: 'Gmail',
 		auth: {
 			user: 'tuunguyen2795@gmail.com',
-			pass: 'nguyenminhtu95'
+			pass: 'Tunguyen02071995'
 		}
 	});
 
