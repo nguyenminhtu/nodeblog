@@ -25,17 +25,10 @@ router.get('/contact.html', function (req, res) {
 });
 
 router.post('/contact/send', function (req, res, next) {
-	var transporter = nodeMailer.createTransport({
-		service: 'Gmail',
-		port: 465,
-		auth: {
-			user: 'tuunguyen2795@gmail.com',
-			pass: 'Tunguyen02071995'
-		}
-	});
+	var transporter = nodeMailer.createTransport('smtps://tuunguyen2795@gmail.com:Tunguyen02071995@smtp.gmail.com');
 
 	var mailOptions = {
-		from: 'TuNguyen <tuunguyen2795@gmail.com>',
+		from: 'no-reply@yourdomain.com',
 		to: 'tuunguyen2795@gmail.com',
 		subject: 'NodeBlog submission',
 		text: 'You have a new submission from NodeBlog with the following details...Name: '+req.body.name+' Email: '+req.body.email+' Message: '+req.body.message+'',
