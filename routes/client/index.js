@@ -27,6 +27,7 @@ router.get('/contact.html', function (req, res) {
 router.post('/contact/send', function (req, res, next) {
 	var transporter = nodeMailer.createTransport({
 		service: 'Gmail',
+		port: 465,
 		auth: {
 			user: 'tuunguyen2795@gmail.com',
 			pass: 'Tunguyen02071995'
