@@ -1,0 +1,39 @@
+<% include layouts/menu.ejs %>
+
+
+<div id="addpost">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-6 col-sm-offset-3">
+				<form action="/mt_admin/posts/add" method="POST" role="form">
+					<legend class="lead text-center">Add more post</legend>
+				
+					<div class="form-group">
+						<label for="">Post title:</label>
+						<input type="text" class="form-control" name="title" id="" placeholder="Post title..." autofocus="">
+					</div>
+					<div class="form-group">
+						<label for="">Post content:</label>
+						<textarea class="form-control" name="content" id="" placeholder="Post content..."></textarea>
+					</div>
+					<div class="form-group">
+						<label for="">Post image:</label>
+						<input type="file" class="form-control" name="postimage">
+					</div>
+				
+					<div class="row">
+						<div class="col-sm-6">
+							<button type="submit" class="btn btn-primary btn-block">Add</button>
+						</div>
+						<div class="col-sm-6">
+							<button type="reset" class="btn btn-primary btn-block">Reset form</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<% include layouts/footer.ejs %>

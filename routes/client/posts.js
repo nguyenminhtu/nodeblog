@@ -23,15 +23,19 @@ router.get('/:id/show', function (req, res) {
 
 router.post('/search', function (req, res) {
 	var keyword = req.body.keyword;
-	Post.find({'title': new RegExp(keyword, 'i')}).exec(function(err, posts_title){
-		Post.find({'content': new RegExp(keyword, 'i')}).exec(function(err, posts_content){
-			if(err){
-				console.log(err);
-				res.end(err);
-			}else{
-				res.render('client/search', {title: "Search Result", posts_title: posts_title, posts_content: posts_content, key: keyword});
-			}
-		});
+	Post.find({'title': new RegExp('^'+keyword+'$', 'i')}).exec(function(err, posts_title){
+		if(err){
+			res.end(err);
+		}else{
+			Post.find({'content': new RegExp('^'+keyword+'$', 'i')}).exec(function(err, posts_content){
+				if(err){
+					console.log(err);
+					res.end(err);
+				}else{
+					res.render('client/search', {title: "Search Result", posts_title: posts_title, posts_content: posts_content, key: keyword});
+				}
+			});
+		}
 	});
 });
 

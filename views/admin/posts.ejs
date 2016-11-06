@@ -1,0 +1,49 @@
+<% include layouts/menu.ejs %>
+
+
+<div id="mainPosts">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th class="text-center">ID</th>
+							<th class="text-center">Title</th>
+							<th class="text-center">Content</th>
+							<th class="text-center">Image</th>
+							<th class="text-center">Date</th>
+							<th colspan="2" class="text-center">
+								<a href="/mt_admin/posts/add" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i>Add post</a>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% posts.forEach(function(post){ %>
+							<tr id="<%= post._id %>">
+								<td><%= post._id %></td>
+								<td><%= post.title %></td>
+								<td><%= shortText(post.content, 200) %> ......</td>
+								<td><img src="/uploads/<%= post.image %>" alt="" class="img-responsive" style='width: 300px;height: 100px'></td>
+								<td><%= moment(post.date).fromNow() %></td>
+								<td>
+									<a href="/mt_admin/posts/edit/<%= post._id %>" class="btn btn-primary">
+										<i class="glyphicon glyphicon-pencil"></i> Edit
+									</a>
+								</td>
+								<td>
+									<a href="javascript:void(0)" id-delete="<%= post._id %>" class="btn btn-danger deletePost">
+										<i class="glyphicon glyphicon-trash"></i> Delete
+									</a>
+								</td>
+							</tr>
+						<% }); %>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<% include layouts/footer.ejs %>

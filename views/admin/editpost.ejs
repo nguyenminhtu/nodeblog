@@ -1,0 +1,39 @@
+<% include layouts/menu.ejs %>
+
+
+<div id="addpost">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-6 col-sm-offset-3">
+				<%- messages() %>
+				<form action="/mt_admin/posts/edit/<%= post._id %>" method="POST" role="form">
+					<legend class="lead text-center">Edit post</legend>
+				
+					<div class="form-group">
+						<label for="">Post title:</label>
+						<input type="text" class="form-control" name="title" id="" placeholder="Post title..." autofocus="" value="<%= post.title %>">
+					</div>
+					<div class="form-group">
+						<label for="">Post content:</label>
+						<textarea class="form-control" rows="7" name="content" id="" placeholder="Post content..."><%= post.content %></textarea>
+					</div>
+					<div class="form-group">
+						<label for="">Post image:</label>
+						<input type="file" class="form-control" name="postimage">
+						<input type="hidden" name="imagename" value="<%= post.image %>">
+						<img src="/uploads/<%= post.image %>" alt="" class="img-responsive" style="width: 500px;height: 200px">
+					</div>
+				
+					<div class="row">
+						<div class="col-sm-6 col-sm-offset-3">
+							<button type="submit" class="btn btn-primary btn-block">Update</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<% include layouts/footer.ejs %>

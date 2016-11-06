@@ -3,15 +3,15 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var mongodb = require('mongodb');
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://tunguyen:nguyenminhtu95@ds021984.mlab.com:21984/simpleblog');
-var flash = require('connect-flash');
 var session = require('express-session');
 var expressValidator = require('express-validator');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var bodyParser = require('body-parser');
+var flash = require('connect-flash');
+var mongodb = require('mongodb');
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://tunguyen:nguyenminhtu95@ds021984.mlab.com:21984/simpleblog');
 var moment = require('moment');
 
 
@@ -19,6 +19,7 @@ var moment = require('moment');
 //client route
 var index = require('./routes/client/index');
 var posts = require('./routes/client/posts');
+var users = require('./routes/client/users');
 
 //route admin
 var admin = require('./routes/admin/index');
@@ -36,8 +37,6 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
 //Express session
 app.use(session({
@@ -49,30 +48,6 @@ app.use(session({
 //Passport
 app.use(passport.initialize());
 app.use(passport.session());
-
-
-// Flash
-app.use(flash());
-
-
-// Global variable
-app.use(function(req, res, next){
-  res.locals.messages = require('express-messages')(req, res);
-  res.locals.moment = moment;
-  res.locals.changeColorText = function(text, keyword){
-    if(text.indexOf(keyword) >= 0){
-      return text.replace(keyword, "<span style='color: red'>"+keyword+"</span>")
-    }else{
-      return text;
-    }
-  }
-  res.locals.shortText = function (text, limit) {
-    return text.substring(0, limit);
-  }
-  res.locals.title = '';
-  next();
-});
-
 
 // Express validator
 app.use(expressValidator({
@@ -92,13 +67,47 @@ app.use(expressValidator({
   }
 }));
 
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+
+
+// Flash
+app.use(flash());
+// Global variable
+app.use(function(req, res, next){
+  res.locals.messages = require('express-messages')(req, res);
+  res.locals.moment = moment;
+  res.locals.changeColorText = function(text, keyword){
+    if(text.indexOf(keyword) >= 0){
+      return text.replace(keyword, "<span style='color: red'>"+keyword+"</span>")
+    }else{
+      return text;
+    }
+  }
+  res.locals.shortText = function (text, limit) {
+    return text.substring(0, limit);
+  }
+  res.locals.title = '';
+  next();
+});
+
+app.get('*', function(req, res, next){
+  res.locals.user = req.user || null;
+  if(req.user){
+    res.locals.userlevel = req.user.level;
+  }
+  next();
+});
+
+
 app.use('/', index);
 app.use('/posts', posts);
+app.use('/users', users);
 
 //admin
-app.use('/admin', admin);
-app.use('/admin/posts', admin_posts);
-app.use('/admin/users', admin_users);
+app.use('/mt_admin', admin);
+app.use('/mt_admin/posts', admin_posts);
+app.use('/mt_admin/users', admin_users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

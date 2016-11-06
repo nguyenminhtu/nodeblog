@@ -1,5 +1,4 @@
 var mongoose = require('mongoose');
-var mongoosePaginate = require('mongoose-paginate');
 
 // Post schema
 var postSchema = mongoose.Schema({
@@ -14,14 +13,11 @@ var postSchema = mongoose.Schema({
 	},
 	date: {
 		type: Date
-	},
-	comments: [{
-		comment_username: {type: String},
-		comment_content: {type: String},
-		comment_date: {type: Date}
-	}]
+	}
 });
 
-postSchema.plugin(mongoosePaginate);
-
 var Post = module.exports = mongoose.model('Post', postSchema);
+
+module.exports.createPost = function(newPost, callback){
+	newPost.save(callback);
+}
